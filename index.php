@@ -22,7 +22,7 @@
                 exit();
             }
             
-            if (mysql_num_rows($result) == 0) {
+            if ($mysqli->num_rows($result) == 0) {
                 echo "No rows found, nothing to print so am exiting";
                 exit();
             }
