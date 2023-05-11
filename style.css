@@ -1,0 +1,21 @@
+table {
+    display: table;
+    border-collapse: collapse;
+    border-radius: 2px;
+    overflow: hidden;
+    width: 50%;
+    height: 50%;
+}
+
+tr {
+    display: table-row;
+}
+
+td {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid black;
+    width: 33.33%;
+    height: 33.33%;
+}

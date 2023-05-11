@@ -1,10 +1,10 @@
 <html>
     <head>
         <title>Esercitazione PHP Git</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
     <?php
-	    echo "php generated";
             $mysqli = new mysqli("localhost","php","");
             $mysqli -> select_db("prodotti");
 
@@ -22,7 +22,7 @@
                 exit();
             }
             
-            if ($mysqli->num_rows($result) == 0) {
+            if ($result->num_rows == 0) {
                 echo "No rows found, nothing to print so am exiting";
                 exit();
             }
@@ -34,12 +34,14 @@
                     <th>Prezzo Prodotto</th>
                     <th>Quantitá Prodotto</th>
                 </tr>";
-            while($row = mysql_fetch_assoc($result)){
-                echo "<tr>".$row["id_prodotto"]."</tr>";
-                echo "<tr>".$row["Nome"]."</tr>";
-                echo "<tr>".$row["Descrizione"]."</tr>";
-                echo "<tr>".$row["Prezzo"]."</tr>";
-                echo "<tr>".$row["Quantita"]."</tr>";
+            while($row = $result -> fetch_assoc()){
+                echo "<tr>";
+                echo "<td>".$row["id_prodotto"]."</td>";
+                echo "<td>".$row["nome"]."</td>";
+                echo "<td>".$row["Descrizione"]."</td>";
+                echo "<td>".$row["Prezzo"]."$</td>";
+                echo "<td>".$row["quantita"]."</td>";
+                echo "</tr>";
             }
             echo "</table>";
               
