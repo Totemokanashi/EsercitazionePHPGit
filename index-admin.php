@@ -17,7 +17,7 @@
         $result = $mysqli->query($checkAdmin);
 
         if ($result->num_rows == 0) {
-            header("Location: http://esercitazionephpgit/index.php");
+            header("Location: http://localhost/index.php");
             die();
         }
     ?>
