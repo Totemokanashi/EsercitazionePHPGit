@@ -16,8 +16,9 @@
         
         $result = $mysqli->query($checkAdmin);
 
+
         if ($result->num_rows == 0) {
-            header("Location: http://localhost/index.php");
+            header("Location: http://localhost/index.php", true, 307);
             die();
         }
     ?>
