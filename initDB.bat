@@ -13,6 +13,14 @@ create table prodotto(
 	image varchar(255)
 );
 
+create table users(
+	id_user int Primary Key AUTO_INCREMENT,
+	username varchar(255),
+	password varchar(255)
+);
+
+insert into users (username, password) values("admin","admin");
+
 insert into prodotto (nome,descrizione,prezzo,quantita,image) values 
 ("Coca Cola", "Bibita zuccherata energetica", 2.50, 40,"Coca Cola.png"), 
 ("Samson Galaxu 20-nota","Telefono di ultima generazione della famosa azienda samson",400, 20,"Samson Galaxu 20-nota.png"), 

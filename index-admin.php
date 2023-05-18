@@ -4,41 +4,31 @@
     <title>Esercitazione PHP Git</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<script>
-    var bool = false;
-    var popup;
-
-    function openPopup() {
-        if (!bool) {
-            popup = document.getElementById("login-popup");
-            popup.style.display = "block";
-            bool = !bool;
-            return;
-        }
-        popup.style.display = "none";
-        bool = !bool;
-        return;
-    }
-</script>
 
 <body style="background">
     <div class="main-container">
 
+    <?php
+        $mysqli = new mysqli("localhost", "php", "");
+        $mysqli->select_db("Esercitazione");
+
+        $checkAdmin = "SELECT username, password FROM users WHERE username='".$_POST['username']."' AND password='".$_POST['password']."'";
+        
+        $result = $mysqli->query($checkAdmin);
+
+        if ($result->num_rows == 0) {
+            header("Location: http://esercitazionephpgit/index.php");
+            die();
+        }
+    ?>
+
+    <form action="index.php" method="post">
         <div class="user-profile">
-            <a href="#" onclick="openPopup()">
-                <img src="img/pfp.png" class="profile-picture">
-            </a>
-            <div id="login-popup" class="login-popup">
-                <h3>Login</h3>
-                <form class="login-form" action="index-admin.php" method="post">
-                    <input type="text" name="username" placeholder="Username">
-                    <input type="password" name="password" class="password-input" placeholder="Password">
-                    <div class="login-button-container">
-                        <input type="submit" value="Login">
-                    </div>
-                </form>
+            <div class="login-button-container">
+                <input type="submit" value="Sign out">
             </div>
         </div>
+    </form>
 
         <div class="logo-container">
             <a href="index.php">
@@ -53,10 +43,20 @@
             </form>
         </div>
 
+        <div class="add-button-container">
+            <form action="add_product.php" method="post">
+                <input type="submit" value="Add Product">
+            </form>
+        </div>
         <div class="card-container">
             <?php
             $mysqli = new mysqli("localhost", "php", "");
             $mysqli->select_db("Esercitazione");
+
+            if ($mysqli->connect_errno) {
+                echo "connesione fallita a mysql " . $mysqli->connect_error;
+                exit();
+            }
 
             if (isset($_GET['search'])) {
                 $searchTerm = $_GET['search'];
@@ -69,7 +69,7 @@
 
             $result = $mysqli->query($selectProdotti);
             if (!$result) {
-                echo "Could not successfully run query ($checkAdmin) from DB: " . mysql_error();
+                echo "Could not successfully run query ($sql) from DB: " . mysql_error();
                 exit();
             }
 
@@ -87,6 +87,16 @@
                             <p>Prezzo:<br>" . $row["prezzo"] . "€</p>
                             <p>Quantitá:<br>" . $row["quantita"] . " pezzi</p>
                             <img src='img/" . $row["image"] . "'>
+                            <div class='button-container'>
+                                <form action='modify_product.php' method='post'>
+                                    <input type='hidden' name='product_id' value='" . $row["id_prodotto"] . "'>
+                                    <input type='submit' value='Modify Product'>
+                                </form>
+                                <form action='delete_product.php' method='post'>
+                                    <input type='hidden' name='product_id' value='" . $row["id_prodotto"] . "'>
+                                    <input type='submit' value='Delete Product'>
+                                </form>
+                            </div>
                         </div>
                     </div>";
             }
