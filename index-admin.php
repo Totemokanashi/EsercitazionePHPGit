@@ -18,7 +18,7 @@
 
 
         if ($result->num_rows == 0) {
-            header("Location: http://localhost/index.php", true, 307);
+            header("Location: index.php", true, 307);
             die();
         }
     ?>
