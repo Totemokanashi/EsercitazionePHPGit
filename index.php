@@ -4,14 +4,54 @@
     <title>Esercitazione PHP Git</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+<script>
+    var bool = false;
+    var popup;
+
+    function openPopup() {
+        if (!bool){
+            popup = document.getElementById("login-popup");
+            popup.style.display = "block";
+            bool = !bool;
+            return;
+        }
+        popup.style.display = "none";
+        bool = !bool;
+        return;
+    }
+</script>
 <body style="background">
     <div class="main-container">
+        
+        <div class="user-profile">
+            <a href="#" onclick="openPopup()">
+                <img src="img/pfp.png" class="profile-picture">
+            </a>
+            <div id="login-popup" class="login-popup">
+                <h3>Login</h3>
+                <form class="login-form">
+                    <input type="text" name="username" placeholder="Username">
+                    <input type="password" name="password" class="password-input" placeholder="Password">
+                    <div class="login-button-container">
+                        <input type="submit" value="Login">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="logo-container">
+            <a href="index.php"> <!-- Replace "https://example.com" with your desired URL -->
+                <img src="logo.png" class="logo">
+            </a>
+        </div>
+
         <div class="search-container">
             <form class="search-form"  action="index.php" method="get">
                 <input type="text" name="search" placeholder="Search products...">
                 <input type="submit" value="Search">
             </form>
         </div>
+
         <div class="card-container">
             <?php
                 $mysqli = new mysqli("localhost","php","");
