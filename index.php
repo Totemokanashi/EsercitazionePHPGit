@@ -21,16 +21,14 @@
     }
 </script>
 
-<body style="background">
+<body>
     <div class="main-container">
 
-        <div class="user-profile">
-            <a href="#" onclick="openPopup()">
-                <img src="img/pfp.png" class="profile-picture">
-            </a>
+    <div class="user-profile">
+            <img src="img/pfp.png" class="profile-picture" onclick="openPopup()">
             <div id="login-popup" class="login-popup">
                 <h3>Login</h3>
-                <form class="login-form" action="index-admin.php" method="post">
+                <form class="login-form" action="index_admin.php" method="post">
                     <input type="text" name="username" placeholder="Username">
                     <input type="password" name="password" class="password-input" placeholder="Password">
                     <div class="login-button-container">

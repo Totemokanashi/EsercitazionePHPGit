@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body style="background">
+<body>
     <div class="main-container">
 
         <?php
