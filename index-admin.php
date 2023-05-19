@@ -8,20 +8,20 @@
 <body style="background">
     <div class="main-container">
 
-    <?php
-        $mysqli = new mysqli("localhost", "php", "");
-        $mysqli->select_db("Esercitazione");
-
-        $checkAdmin = "SELECT username, password FROM users WHERE username='".$_POST['username']."' AND password='".$_POST['password']."'";
-        
-        $result = $mysqli->query($checkAdmin);
-
-
-        if ($result->num_rows == 0) {
-            header("Location: index.php", true, 307);
-            die();
-        }
-    ?>
+        <?php
+            $mysqli = new mysqli("localhost", "php", "");
+            $mysqli->select_db("Esercitazione");
+    
+            $checkAdmin = "SELECT username, password FROM users WHERE username='".$_POST['username']."' AND password='".$_POST['password']."'";
+            
+            $result = $mysqli->query($checkAdmin);
+    
+    
+            if ($result->num_rows == 0) {
+                header("Location: index.php", true, 307);
+                die();
+            }
+        ?>
 
     <form action="index.php" method="post">
         <div class="user-profile">
@@ -89,11 +89,11 @@
                             <p>Quantitá:<br>" . $row["quantita"] . " pezzi</p>
                             <img src='img/" . $row["image"] . "'>
                             <div class='button-container'>
-                                <form action='modify_product.php' method='post'>
+                                <form action='modify_product.php' method='get'>
                                     <input type='hidden' name='product_id' value='" . $row["id_prodotto"] . "'>
                                     <input type='submit' value='Modify Product'>
                                 </form>
-                                <form action='delete_product.php' method='post'>
+                                <form action='delete_product.php' method='get'>
                                     <input type='hidden' name='product_id' value='" . $row["id_prodotto"] . "'>
                                     <input type='submit' value='Delete Product'>
                                 </form>
@@ -101,7 +101,6 @@
                         </div>
                     </div>";
             }
-
             ?>
         </div>
     </div>

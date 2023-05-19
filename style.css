@@ -4,6 +4,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
 
     background-image: url('background.png');
     background-repeat: no-repeat;
@@ -13,6 +14,8 @@ body {
 
 .main-container {
     display: flex;
+    width: 100%;
+    height: 100vh;
     flex-direction: column;
     align-items: center;
     padding: 20px;
@@ -22,6 +25,7 @@ body {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    min-height: 250px; 
 }
 
 .logo {
@@ -30,14 +34,7 @@ body {
 }
 
 .user-profile {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    /* Align items to the end */
-    width: 100%;
+    width: 100vw;
     /* Set the width to occupy the entire space */
 }
 
@@ -53,9 +50,6 @@ body {
 
 .login-popup {
     display: none;
-    position: absolute;
-    top: 70px;
-    right: 0;
     padding: 10px;
     background-color: white;
     text-align: center;
@@ -94,15 +88,15 @@ body {
     gap: 10px;
 }
 
-input[type="text"],
-input[type="submit"] {
+.search-container input[type="text"],
+.search-container input[type="submit"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
 }
 
-input[type="text"] {
+.search-container input[type="text"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -115,18 +109,24 @@ input[type="submit"] {
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 .card-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    margin-top: 20px;
 }
 
 .card {
     width: 200px;
     border-radius: 0.5rem;
     background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.808);
     filter: opacity(0.8);
     overflow: hidden;
 }
@@ -140,6 +140,7 @@ input[type="submit"] {
     align-items: center;
     height: 95%;
 }
+
 
 .card img {
     max-width: 100%;
