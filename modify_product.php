@@ -3,6 +3,7 @@
 <head>
     <title>Esercitazione PHP Git</title>
     <link rel="stylesheet" type="text/css" href="modify_product.css">
+    <script src="dragAndDrop.js"></script>
 </head>
 
 <body>
@@ -46,6 +47,9 @@
                                 <p>Quantitá</p>
                                 <textarea name='Quantita' placeholder='Quantitá' rows='3'>".$row["quantita"]."</textarea>
                                 <img src='img/" . $row["image"] . "'>
+                                <div class='drop-box' id='dropBox' ondrop='dropHandler(event);' ondragover='dragOverHandler(event);' ondragleave='dragLeaveHandler(event);'>
+                                  Drag and drop an image here.
+                                </div>
                                 <div class='button-container'>
                                     <input type='submit' value='Confirm'>
                                 </div>
