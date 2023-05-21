@@ -9,8 +9,9 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    
+
 }
+
 .main-container {
     display: flex;
     width: 100%;
@@ -38,7 +39,7 @@ body {
     width: 600px;
     border-radius: 0.5rem;
     background-color: rgba(255, 255, 255, 0.767);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.895);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.295);
     overflow-x: hidden;
     scrollbar-width: none;
     margin-bottom: 10px;
@@ -84,12 +85,13 @@ body {
     width: 100px;
     height: 100px;
     border: 2px dashed #ccc;
+    background-color: #f2f2f2;
     text-align: center;
     padding: 20px;
     font-family: Arial;
     font-size: 16px;
-  }
+}
 
-  .drop-box.dragover {
-    background-color: #f2f2f2;
-  }
+.image-product {
+    filter: blur(0.2rem);
+}

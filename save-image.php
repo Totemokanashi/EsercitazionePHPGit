@@ -20,14 +20,8 @@ $imageData = $data['imageData'];
 $parts = explode(',', $imageData);
 $imageData = base64_decode($parts[1]);
 
-// Define the destination directory to save the image
-$destinationDirectory = '';
-
-// Define the full path of the destination file
-$destinationPath = $destinationDirectory . $filename;
-
 // Save the image to the file system
-if (file_put_contents($destinationPath, $imageData)) {
+if (file_put_contents($filename, $imageData)) {
   // Image saved successfully
   $response = array('success' => true, 'message' => 'Image saved successfully.');
   echo json_encode($response);

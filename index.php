@@ -52,9 +52,10 @@
         </div>
 
         <div class="card-container">
-            <?php
-            $mysqli = new mysqli("localhost", "php", "");
-            $mysqli->select_db("Esercitazione");
+        <?php
+            session_start(); 
+
+            include "connect.php";
 
             if (isset($_GET['search'])) {
                 $searchTerm = $_GET['search'];
@@ -88,8 +89,8 @@
                         </div>
                     </div>";
             }
-
-            ?>
+            
+        ?>
         </div>
     </div>
 </body>
