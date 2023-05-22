@@ -21,6 +21,7 @@ function dropHandler(event) {
 
   handleSelectedFile(file);
 }
+
 function handleSelectedFile(file) {
   // Check if a file is selected
   if (file) {

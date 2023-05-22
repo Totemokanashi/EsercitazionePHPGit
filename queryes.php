@@ -10,19 +10,20 @@ if (isset($_POST['modify'])) {
 
     $query = "INSERT INTO prodotto (nome,descrizione,prezzo,quantita,image) VALUES ('".$_POST['nome']."','".$_POST['descrizione']."','".$_POST['prezzo']."','".$_POST['quantita']."','".$_POST['image']."')";
 }else if (isset($_POST['delete'])){
-
     // Retrieve the image filename from the database for the product being deleted
     $getImageQuery = "SELECT image FROM prodotto WHERE id_prodotto = ".$_POST['product_id'];
     $imageResult = $mysqli->query($getImageQuery);
-    
+
     if ($imageResult && $imageResult->num_rows > 0) {
         $row = $imageResult->fetch_assoc();
         $imageFilename = $row['image'];
-    
-        // Delete the image file from the 'img' folder
-        $imagePath = "img/".$imageFilename;
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
+
+        if($imageFilename != 'default.png') {
+           // Delete the image file from the 'img' folder
+           $imagePath = "img/".$imageFilename;
+           if (file_exists($imagePath)) {
+               unlink($imagePath);
+           }
         }
     }
 
