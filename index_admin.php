@@ -10,46 +10,37 @@
 
         <?php
             include "connect.php";
+
+            function checkAdmin(){
+                $checkAdmin = "SELECT username, password FROM users WHERE username='".$_POST['username']."' AND password='".$_POST['password']."'";
+
+                $result = $GLOBALS['mysqli']->query($checkAdmin);
     
-            if($_COOKIE['username']!='admin' && $_COOKIE['password']!='admin'){
-                if((!isset($_POST['username']) && !isset($_POST['password']))){
+                if ($result->num_rows === 0) {
                     header("Location: index.php", true, 307);
                     die();
                 }
-                $checkAdmin = "SELECT username, password FROM users WHERE username='".$_POST['username']."' AND password='".$_POST['password']."'";
-
-                $result = $mysqli->query($checkAdmin);
-    
-                if ($result->num_rows == 0) {
-                    if($_COOKIE['username']!='admin' && $_COOKIE['password']!='admin'){
-                        header("Location: index.php", true, 307);
-                        die();
-                    }
-                }
-    
                 setcookie("username", "admin", time() + 86400, "/");
                 setcookie("password", "admin", time() + 86400, "/");
+            }
+
+            if(isset($_POST['username']) && isset($_POST['password'])){
+                checkAdmin();
+            }else{
+                if((!isset($_COOKIE['username']) && !isset($_COOKIE['password']))){
+                    checkAdmin();
+                }
             }
             
         ?>
 
-        <form method="post">
+        <form action="index.php">
             <div class="user-profile">
                 <div class="login-button-container">
-                    <input type="submit" name="Signout" value="Sign out">
+                    <input type="submit" value="Sign out">
                 </div>
             </div>
         </form>
-        <?php
-
-            if(array_key_exists('Signout',$_POST)){
-                unset($_COOKIE['username']);
-                unset($_COOKIE['password']);
-                header("Location: index.php", true, 307);
-                die();
-            }
-
-        ?>
 
         <div class="logo-container">
             <a href="index.php">
@@ -65,8 +56,8 @@
         </div>
 
         <div class="add-button-container">
-            <form action="add_product.php" method="post">
-                <input type="submit" value="Add Product">
+            <form action="modify_product.php" method="post">
+                <input type="submit" name="add" value="Add Product">
             </form>
         </div>
         <div class="card-container">
@@ -121,6 +112,8 @@
                         </div>
                     </div>";
             }
+
+            $mysqli->close();
             ?>
         </div>
     </div>

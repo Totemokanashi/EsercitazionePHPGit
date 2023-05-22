@@ -20,10 +20,12 @@ $imageData = $data['imageData'];
 $parts = explode(',', $imageData);
 $imageData = base64_decode($parts[1]);
 
+$filename = $filename;
+
 // Save the image to the file system
 if (file_put_contents($filename, $imageData)) {
   // Image saved successfully
-  $response = array('success' => true, 'message' => 'Image saved successfully.');
+  $response = array('success' => true, 'message' => 'Image saved successfully as '.$filename);
   echo json_encode($response);
 } else {
   // Failed to save the image

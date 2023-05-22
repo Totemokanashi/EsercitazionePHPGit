@@ -53,9 +53,10 @@
 
         <div class="card-container">
         <?php
-            session_start(); 
-
             include "connect.php";
+
+            setcookie("username", "", time() - 86400);
+            setcookie("password", "", time() - 86400);
 
             if (isset($_GET['search'])) {
                 $searchTerm = $_GET['search'];
@@ -90,6 +91,7 @@
                     </div>";
             }
             
+            $mysqli->close();
         ?>
         </div>
     </div>

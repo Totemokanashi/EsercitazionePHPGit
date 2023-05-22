@@ -93,5 +93,6 @@ body {
 }
 
 .image-product {
+    border: 1px#ccc;
     filter: blur(0.2rem);
 }

@@ -13,9 +13,6 @@ function dropHandler(event) {
     // Get the base64-encoded image data
     var imageData = e.target.result;
 
-    // Perform any necessary processing or validation here
-    // ...
-
     // Save the image to the file system
     saveImageToFileSystem(file.name, imageData);
   };
@@ -48,7 +45,8 @@ function saveImageToFileSystem(filename, imageData) {
     .then(response => response.json())
     .then(data => {
       console.log('Image saved:', data);
-      document.getElementById('image').src = filename;
+      document.getElementById('image').src = "img/"+filename;
+      document.getElementById('image-src').value = filename;
     })
     .catch(error => {
       console.error('Error saving image:', error);
