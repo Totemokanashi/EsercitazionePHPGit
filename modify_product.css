@@ -71,15 +71,27 @@ body {
     resize: vertical;
 }
 
+
 .box-content input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #c4b9e1;
+    color: rgb(0, 0, 0);
+    font-size: 14px;
     cursor: pointer;
-    padding: 10px;
+
+    margin: 5px;
+    padding: 15px;
+
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 14px;
+
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
+.box-content input[type="submit"]:hover {
+    background-color: #9383bb;
+    transform: scale(1.05);
+}
+
 
 .drop-box {
     width: 100px;

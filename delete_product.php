@@ -16,7 +16,8 @@
 
             $row = $result->fetch_assoc();
 
-            echo "<div class='card'>
+            echo "
+            <div class='card'>
                         <div class='card-content'>
                         <h2>SICURO DI VOLER ELIMINARE QUESTO PRODOTTO?<h2>
                             <h3>" . $row["nome"] . "</h3>
