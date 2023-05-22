@@ -47,7 +47,7 @@
                         $descrizione = "";
                         $prezzo = "";
                         $quantita = "";
-                        $image = "default";
+                        $image = "/default.png";
                         $mode = "add";
                     }   
                     echo "
