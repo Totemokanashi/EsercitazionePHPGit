@@ -12,7 +12,7 @@
             if (!isOpen) {
                 popup = document.getElementById("login-popup");
                 popup.style.display = "block";
-                bool = !bool;
+                isOpen = !isOpen;
                 return;
             }
             popup.style.display = "none";

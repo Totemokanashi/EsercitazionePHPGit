@@ -38,7 +38,7 @@
                         $descrizione = $row["descrizione"];
                         $prezzo = $row["prezzo"];
                         $quantita = $row["quantita"];
-                        $image = "img/".$row["image"];
+                        $image = $row["image"];
                         $mode = "modify";
                     }else{
                         $id = 1;
@@ -46,7 +46,7 @@
                         $descrizione = "";
                         $prezzo = "";
                         $quantita = "";
-                        $image = "img/default";
+                        $image = "default";
                         $mode = "add";
                     }   
                     echo "
@@ -63,7 +63,7 @@
                             <div class='drop-container'>
                                 <h3>Replace the image dragging a new one</h3>
                                 <textarea id='image-src' name='image' style='display: none  ;visibility:hidden;' >".$image."</textarea>
-                                <img id='image' class='image-product' ondrop='dropHandler(event);' ondragover='dragOverHandler(event);' ondragleave='dragLeaveHandler(event);' src='".$image."'>
+                                <img id='image' class='image-product' ondrop='dropHandler(event);' ondragover='dragOverHandler(event);' ondragleave='dragLeaveHandler(event);' src='img/".$image."'>
                             </div>
                             <div class='button-container'>
                                 <input type='submit' name=".$mode." value='Confirm'>
