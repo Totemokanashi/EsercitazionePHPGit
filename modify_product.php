@@ -38,7 +38,7 @@
                         $descrizione = $row["descrizione"];
                         $prezzo = $row["prezzo"];
                         $quantita = $row["quantita"];
-                        $image = $row["image"];
+                        $image = "img/".$row["image"];
                         $mode = "modify";
                     }else{
                         $id = 1;

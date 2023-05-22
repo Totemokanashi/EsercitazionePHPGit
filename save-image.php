@@ -20,7 +20,24 @@ $imageData = $data['imageData'];
 $parts = explode(',', $imageData);
 $imageData = base64_decode($parts[1]);
 
-$filename = $filename;
+// Check file size (maximum 3MB)
+$maxFileSize = 3 * 1024 * 1024; // 3MB in bytes
+if (strlen($imageData) > $maxFileSize) {
+  $response = array('success' => false, 'message' => 'File size exceeds the limit.');
+  echo json_encode($response);
+  exit;
+}
+
+// Check file extension (allow only images)
+$allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
+$extension = pathinfo($filename, PATHINFO_EXTENSION);
+if (!in_array(strtolower($extension), $allowedExtensions)) {
+  $response = array('success' => false, 'message' => 'Invalid file extension.');
+  echo json_encode($response);
+  exit;
+}
+
+$filename = "img/".$filename;
 
 // Save the image to the file system
 if (file_put_contents($filename, $imageData)) {

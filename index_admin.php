@@ -49,7 +49,7 @@
         </div>
 
         <div class="search-container">
-            <form class="search-form" action="index.php" method="get">
+            <form class="search-form" action="index_admin.php" method="get">
                 <input type="text" name="search" placeholder="Search products...">
                 <input type="submit" value="Search">
             </form>
@@ -86,7 +86,11 @@
             }
 
             if ($result->num_rows == 0) {
-                echo "No rows found, nothing to print so am exiting";
+                echo "<div class='card'>
+                        <div class='card-content'>
+                            <h2>Prodotto non trovato nel catalogo</h2>
+                        </div>
+                    </div>";
                 exit();
             }
 

@@ -5,6 +5,21 @@ function dropHandler(event) {
   // Get the dropped file
   var file = event.dataTransfer.files[0];
 
+  // Check file size (maximum 3MB)
+  var maxSize = 3 * 1024 * 1024; // 3MB in bytes
+  if (file.size > maxSize) {
+    alert('File size exceeds the limit (3MB).');
+    return;
+  }
+
+  // Check file extension (allow only images)
+  var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+  var extension = file.name.split('.').pop().toLowerCase();
+  if (!allowedExtensions.includes(extension)) {
+    alert('Invalid file extension. Allowed extensions are: jpg, jpeg, png, gif');
+    return;
+  }
+
   // Create a new FileReader instance
   var reader = new FileReader();
 
@@ -45,7 +60,7 @@ function saveImageToFileSystem(filename, imageData) {
     .then(response => response.json())
     .then(data => {
       console.log('Image saved:', data);
-      document.getElementById('image').src = "img/"+filename;
+      document.getElementById('image').src = "img/" + filename;
       document.getElementById('image-src').value = filename;
     })
     .catch(error => {
