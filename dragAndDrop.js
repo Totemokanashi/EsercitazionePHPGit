@@ -1,3 +1,17 @@
+function selectFileHandler() {
+  // Create a file input element
+  var fileInput = document.createElement('input');
+  fileInput.type = 'file';
+
+  // Trigger the file input dialog
+  fileInput.click();
+
+  // Handle file selection
+  fileInput.addEventListener('change', function (event) {
+    var file = event.target.files[0];
+    handleSelectedFile(file);
+  });
+}
 
 function dropHandler(event) {
   event.preventDefault();
@@ -5,35 +19,41 @@ function dropHandler(event) {
   // Get the dropped file
   var file = event.dataTransfer.files[0];
 
-  // Check file size (maximum 3MB)
-  var maxSize = 3 * 1024 * 1024; // 3MB in bytes
-  if (file.size > maxSize) {
-    alert('File size exceeds the limit (3MB).');
-    return;
+  handleSelectedFile(file);
+}
+function handleSelectedFile(file) {
+  // Check if a file is selected
+  if (file) {
+    // Check file size (maximum 3MB)
+    var maxSize = 3 * 1024 * 1024; // 3MB in bytes
+    if (file.size > maxSize) {
+      alert('File size exceeds the limit (3MB).');
+      return;
+    }
+
+    // Check file extension (allow only images)
+    var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    var extension = file.name.split('.').pop().toLowerCase();
+    if (!allowedExtensions.includes(extension)) {
+      alert('Invalid file extension. Allowed extensions are: jpg, jpeg, png, gif');
+      return;
+    }
+
+    // Create a new FileReader instance
+    var reader = new FileReader();
+
+    // Define the onload event handler
+    reader.onload = function (e) {
+      // Get the base64-encoded image data
+      var imageData = e.target.result;
+
+      // Save the image to the file system
+      saveImageToFileSystem(file.name, imageData);
+    };
+
+    // Read the file as Data URL (base64-encoded image)
+    reader.readAsDataURL(file);
   }
-
-  // Check file extension (allow only images)
-  var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-  var extension = file.name.split('.').pop().toLowerCase();
-  if (!allowedExtensions.includes(extension)) {
-    alert('Invalid file extension. Allowed extensions are: jpg, jpeg, png, gif');
-    return;
-  }
-
-  // Create a new FileReader instance
-  var reader = new FileReader();
-
-  // Define the onload event handler
-  reader.onload = function (e) {
-    // Get the base64-encoded image data
-    var imageData = e.target.result;
-
-    // Save the image to the file system
-    saveImageToFileSystem(file.name, imageData);
-  };
-
-  // Read the dropped file as Data URL (base64-encoded image)
-  reader.readAsDataURL(file);
 }
 
 function dragOverHandler(event) {

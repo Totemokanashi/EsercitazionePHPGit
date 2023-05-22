@@ -61,8 +61,8 @@
                             <textarea name='prezzo' placeholder='Prezzo' rows='3'>".$prezzo."</textarea>
                             <h3>Quantitá</h3>
                             <textarea name='quantita' placeholder='Quantitá' rows='3'>".$quantita."</textarea>
-                            <div class='drop-container'>
-                                <h3>Replace the image dragging a new one</h3>
+                            <div class='drop-container' onclick='selectFileHandler();'>
+                                <h3>Replace the image dragging a new one or click here to select a file</h3>
                                 <textarea id='image-src' name='image' style='display: none  ;visibility:hidden;' >".$image."</textarea>
                                 <img id='image' class='image-product' ondrop='dropHandler(event);' ondragover='dragOverHandler(event);' ondragleave='dragLeaveHandler(event);' src='img/".$image."'>
                             </div>
