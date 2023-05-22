@@ -3,6 +3,7 @@
     <head>
         <title>Esercitazione PHP Git</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="icon" type="image/x-icon" href="logo.png">
     </head>
     <script>
         var isOpen = false;

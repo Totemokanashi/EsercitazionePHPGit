@@ -134,7 +134,7 @@ input[type="submit"] {
 }
 
 .card-content {
-    width: 200px;
+    width: auto;
     padding: 15px;
     text-align: center;
     display: flex;

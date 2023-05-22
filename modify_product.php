@@ -3,6 +3,7 @@
 <head>
     <title>Esercitazione PHP Git</title>
     <link rel="stylesheet" type="text/css" href="modify_product.css">
+    <link rel="icon" type="image/x-icon" href="logo.png">
     <script src="dragAndDrop.js"></script>
 </head>
 
