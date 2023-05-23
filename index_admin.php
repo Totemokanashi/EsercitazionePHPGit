@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Esercitazione PHP Git</title>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -10,29 +11,30 @@
     <div class="main-container">
 
         <?php
-            include "connect.php";
+        include "connect.php";
 
-            function checkAdmin(){
-                $checkAdmin = "SELECT username, password FROM users WHERE username='".$_POST['username']."' AND password='".$_POST['password']."'";
+        function checkAdmin()
+        {
+            $checkAdmin = "SELECT username, password FROM users WHERE username='" . $_POST['username'] . "' AND password='" . $_POST['password'] . "'";
 
-                $result = $GLOBALS['mysqli']->query($checkAdmin);
-    
-                if ($result->num_rows === 0) {
-                    header("Location: index.php", true, 307);
-                    die();
-                }
-                setcookie("username", "admin", time() + 86400, "/");
-                setcookie("password", "admin", time() + 86400, "/");
+            $result = $GLOBALS['mysqli']->query($checkAdmin);
+
+            if ($result->num_rows === 0) {
+                header("Location: index.php", true, 307);
+                die();
             }
+            setcookie("username", "admin", time() + 86400, "/");
+            setcookie("password", "admin", time() + 86400, "/");
+        }
 
-            if(isset($_POST['username']) && isset($_POST['password'])){
+        if (isset($_POST['username']) && isset($_POST['password'])) {
+            checkAdmin();
+        } else {
+            if ((!isset($_COOKIE['username']) && !isset($_COOKIE['password']))) {
                 checkAdmin();
-            }else{
-                if((!isset($_COOKIE['username']) && !isset($_COOKIE['password']))){
-                    checkAdmin();
-                }
             }
-            
+        }
+
         ?>
 
         <form action="index.php">
@@ -63,28 +65,18 @@
         </div>
         <div class="card-container">
             <?php
-            $mysqli = new mysqli("localhost", "php", "");
-            $mysqli->select_db("Esercitazione");
-
-            if ($mysqli->connect_errno) {
-                echo "connesione fallita a mysql " . $mysqli->connect_error;
-                exit();
-            }
+            include "connect.php";
 
             if (isset($_GET['search'])) {
                 $searchTerm = $_GET['search'];
                 $selectProdotti = "SELECT * FROM prodotto WHERE nome LIKE '%$searchTerm%'";
-                // execute the query and display the filtered results
+                // crea la query da eseguire con il filtro inserito nella barra di ricerca
             } else {
                 $selectProdotti = "SELECT * FROM prodotto";
-                // execute the query and display all products
+                // crea la query da eseguire con tutti i prodotti
             }
 
             $result = $mysqli->query($selectProdotti);
-            if (!$result) {
-                echo "Could not successfully run query ($sql) from DB: " . mysql_error();
-                exit();
-            }
 
             if ($result->num_rows == 0) {
                 echo "<div class='card'>
@@ -123,4 +115,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -1,26 +1,26 @@
 <?php
-// Retrieve the raw request body
+// Prende il body della request
 $requestBody = file_get_contents('php://input');
 
-// Decode the JSON data
+// decodifica la richiesta JSON
 $data = json_decode($requestBody, true);
 
 if ($data === null || !isset($data['filename']) || !isset($data['imageData'])) {
-  // Invalid request data
+  // Richiesta errata
   $response = array('success' => false, 'message' => 'Invalid request data.');
   echo json_encode($response);
   exit;
 }
 
-// Retrieve the data sent from the client-side
+// Prende l'immagine mandata dal client
 $filename = $data['filename'];
 $imageData = $data['imageData'];
 
-// Remove the data URL prefix
+// Rimuove l'URL dal nome del file
 $parts = explode(',', $imageData);
 $imageData = base64_decode($parts[1]);
 
-// Check file size (maximum 3MB)
+// Controlla la grandezza del file e rifiuta il file se troppo grande
 $maxFileSize = 3 * 1024 * 1024; // 3MB in bytes
 if (strlen($imageData) > $maxFileSize) {
   $response = array('success' => false, 'message' => 'File size exceeds the limit.');
@@ -28,7 +28,7 @@ if (strlen($imageData) > $maxFileSize) {
   exit;
 }
 
-// Check file extension (allow only images)
+// Controlla l'estensione del file (solo estensioni per immagini)
 $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
 $extension = pathinfo($filename, PATHINFO_EXTENSION);
 if (!in_array(strtolower($extension), $allowedExtensions)) {
@@ -37,15 +37,15 @@ if (!in_array(strtolower($extension), $allowedExtensions)) {
   exit;
 }
 
-$filename = "img/".$filename;
+$filename = "img/" . $filename;
 
-// Save the image to the file system
+// Salva l'immagine sul server nella cartella /var/www/html/img
 if (file_put_contents($filename, $imageData)) {
-  // Image saved successfully
-  $response = array('success' => true, 'message' => 'Image saved successfully as '.$filename);
+  // Immagine salvata con successo
+  $response = array('success' => true, 'message' => 'Image saved successfully as ' . $filename);
   echo json_encode($response);
 } else {
-  // Failed to save the image
+  // Error salvataggio immagine fallito
   $response = array('success' => false, 'message' => 'Failed to save the image.');
   echo json_encode($response);
 }

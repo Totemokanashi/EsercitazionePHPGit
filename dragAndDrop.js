@@ -1,12 +1,12 @@
 function selectFileHandler() {
-  // Create a file input element
+  // Crea un file input per prender il file
   var fileInput = document.createElement('input');
   fileInput.type = 'file';
 
-  // Trigger the file input dialog
+  // Apre la finestra del file input
   fileInput.click();
 
-  // Handle file selection
+  // Controlla la selezione del file
   fileInput.addEventListener('change', function (event) {
     var file = event.target.files[0];
     handleSelectedFile(file);
@@ -16,23 +16,23 @@ function selectFileHandler() {
 function dropHandler(event) {
   event.preventDefault();
 
-  // Get the dropped file
+  // Prende il file trascinato
   var file = event.dataTransfer.files[0];
 
   handleSelectedFile(file);
 }
 
 function handleSelectedFile(file) {
-  // Check if a file is selected
+  // Controlla se un file é selezionato
   if (file) {
-    // Check file size (maximum 3MB)
+    // Controlla la grandezza del file (massimo 3MB)
     var maxSize = 3 * 1024 * 1024; // 3MB in bytes
     if (file.size > maxSize) {
       alert('File size exceeds the limit (3MB).');
       return;
     }
 
-    // Check file extension (allow only images)
+    // Controlla l'estensione del file (ammesse solo immagini)
     var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
     var extension = file.name.split('.').pop().toLowerCase();
     if (!allowedExtensions.includes(extension)) {
@@ -40,19 +40,19 @@ function handleSelectedFile(file) {
       return;
     }
 
-    // Create a new FileReader instance
+    // Crea un file reader
     var reader = new FileReader();
 
-    // Define the onload event handler
+    // Definisce il comportamento all'avvio del reader
     reader.onload = function (e) {
-      // Get the base64-encoded image data
+      // Prende i dati dell'immagine
       var imageData = e.target.result;
 
-      // Save the image to the file system
+      // Salva l'immagine sul server
       saveImageToFileSystem(file.name, imageData);
     };
 
-    // Read the file as Data URL (base64-encoded image)
+    // Prende i file tramite URL in BASE64
     reader.readAsDataURL(file);
   }
 }
@@ -76,7 +76,7 @@ function saveImageToFileSystem(filename, imageData) {
     body: JSON.stringify({ filename: filename, imageData: imageData })
   };
 
-  // Send the image data to the server for saving
+  // Manda l'immagine da salvare al server cosi che il php possa salvarla
   fetch('/save-image.php', requestOptions)
     .then(response => response.json())
     .then(data => {
