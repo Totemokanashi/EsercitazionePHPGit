@@ -54,6 +54,11 @@
         <div class="search-container">
             <form class="search-form" action="index_admin.php" method="get">
                 <input type="text" name="search" placeholder="Search products...">
+                <select class="select" name="order">
+                    <option value="Nome" <?php if (isset($_GET['order']) && $_GET['order'] === 'Nome') echo 'selected'; ?>>Nome</option>
+                    <option value="Prezzo" <?php if (isset($_GET['order']) && $_GET['order'] === 'Prezzo') echo 'selected'; ?>>Prezzo</option>
+                    <option value="Quantita" <?php if (isset($_GET['order']) && $_GET['order'] === 'Quantita') echo 'selected'; ?>>Quantità</option>
+                </select>
                 <input type="submit" value="Search">
             </form>
         </div>
@@ -69,11 +74,13 @@
 
             if (isset($_GET['search'])) {
                 $searchTerm = $_GET['search'];
-                $selectProdotti = "SELECT * FROM prodotto WHERE nome LIKE '%$searchTerm%'";
-                // crea la query da eseguire con il filtro inserito nella barra di ricerca
+                $order = isset($_GET['order']) ? $_GET['order'] : 'Nome'; // Get the selected order or default to 'name'
+                $selectProdotti = "SELECT * FROM prodotto WHERE nome LIKE '%$searchTerm%' ORDER BY $order";
+                // Crea la query con il termine ricercato e l'ordine selezionato
             } else {
-                $selectProdotti = "SELECT * FROM prodotto";
-                // crea la query da eseguire con tutti i prodotti
+                $order = isset($_GET['order']) ? $_GET['order'] : 'Nome'; // Get the selected order or default to 'name'
+                $selectProdotti = "SELECT * FROM prodotto ORDER BY $order ";
+                // Crea la query con tutti i prodotti e l'ordine selezionato
             }
 
             $result = $mysqli->query($selectProdotti);
