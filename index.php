@@ -48,6 +48,11 @@
         <div class="search-container">
             <form class="search-form" action="index.php" method="get">
                 <input type="text" name="search" placeholder="Search products...">
+                <select class="select" name="order">
+                    <option value="Nome" <?php if (isset($_GET['order']) && $_GET['order'] === 'Nome') echo 'selected'; ?>>Nome</option>
+                    <option value="Prezzo" <?php if (isset($_GET['order']) && $_GET['order'] === 'Prezzo') echo 'selected'; ?>>Prezzo</option>
+                    <option value="Quantita" <?php if (isset($_GET['order']) && $_GET['order'] === 'Quantita') echo 'selected'; ?>>Quantità</option>
+                </select>
                 <input type="submit" value="Search">
             </form>
         </div>
@@ -61,11 +66,13 @@
 
             if (isset($_GET['search'])) {
                 $searchTerm = $_GET['search'];
-                $selectProdotti = "SELECT * FROM prodotto WHERE nome LIKE '%$searchTerm%'";
-                // crea la query da eseguire con il filtro inserito nella barra di ricerca
+                $order = isset($_GET['order']) ? $_GET['order'] : 'Nome'; // Get the selected order or default to 'name'
+                $selectProdotti = "SELECT * FROM prodotto WHERE nome LIKE '%$searchTerm%' ORDER BY $order";
+                // Crea la query con il termine ricercato e l'ordine selezionato
             } else {
-                $selectProdotti = "SELECT * FROM prodotto";
-                // crea la query da eseguire con tutti i prodotti
+                $order = isset($_GET['order']) ? $_GET['order'] : 'Nome'; // Get the selected order or default to 'name'
+                $selectProdotti = "SELECT * FROM prodotto ORDER BY $order ";
+                // Crea la query con tutti i prodotti e l'ordine selezionato
             }
 
             $result = $mysqli->query($selectProdotti);
@@ -81,13 +88,13 @@
 
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='card'>
-                            <div class='card-content'>
-                                <h3>" . $row["nome"] . "</h3>
-                                <h4>ID prodotto: " . $row["id_prodotto"] . "</h4>
-                                <p>Descrizione:<br>" . $row["descrizione"] . "</p>
-                                <p>Prezzo:<br>" . $row["prezzo"] . "€</p>
-                                <p>Quantitá:<br>" . $row["quantita"] . " pezzi</p>
-                                <img src='img/" . $row["image"] . "'>
+                        <div class='card-content'>
+                            <h3>" . $row["nome"] . "</h3>
+                            <h4>ID prodotto: " . $row["id_prodotto"] . "</h4>
+                            <p>Descrizione:<br>" . $row["descrizione"] . "</p>
+                            <p>Prezzo:<br>" . $row["prezzo"] . "€</p>
+                            <p>Quantitá:<br>" . $row["quantita"] . " pezzi</p>
+                            <img src='img/" . $row["image"] . "'>
                             </div>
                         </div>";
             }
